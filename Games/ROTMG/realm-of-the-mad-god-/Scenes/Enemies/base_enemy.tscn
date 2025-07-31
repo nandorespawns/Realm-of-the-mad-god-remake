@@ -1,0 +1,126 @@
+[gd_scene load_steps=15 format=3 uid="uid://dknrk4c1ivuv"]
+
+[ext_resource type="Script" uid="uid://cs31mwbw82nkd" path="res://Scripts/base_enemy.gd" id="1_1dp5w"]
+[ext_resource type="Texture2D" uid="uid://dcsv6xnpra7ot" path="res://Assets/ORYX sprites/Sliced/Character/demon_atk_l_1.png" id="1_ghaa6"]
+[ext_resource type="Texture2D" uid="uid://bnvynlvw7n4mg" path="res://Assets/ORYX sprites/Sliced/Character/demon_atk_l_2.png" id="2_1dp5w"]
+[ext_resource type="Texture2D" uid="uid://crmkviimr4gui" path="res://Assets/ORYX sprites/Sliced/Character/demon_atk_r_1.png" id="3_auwsv"]
+[ext_resource type="Texture2D" uid="uid://qckq6o6jnblm" path="res://Assets/ORYX sprites/Sliced/Character/demon_atk_r_2.png" id="4_8uf12"]
+[ext_resource type="Texture2D" uid="uid://b1c5bnt5j05vu" path="res://Assets/ORYX sprites/Sliced/Character/demon_idle_d_1.png" id="5_po0sg"]
+[ext_resource type="Texture2D" uid="uid://vnshfjn6e8e1" path="res://Assets/ORYX sprites/Sliced/Character/demon_idle_d_2.png" id="6_haro7"]
+[ext_resource type="PackedScene" uid="uid://cwef8fnns3btx" path="res://Scenes/enemy_projectile_shooter.tscn" id="8_auwsv"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_56vhr"]
+resource_local_to_scene = true
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_ghaa6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_1dp5w")
+}],
+"loop": true,
+"name": &"atk left",
+"speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_auwsv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_8uf12")
+}],
+"loop": true,
+"name": &"atk right",
+"speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_po0sg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_haro7")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 3.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1dp5w"]
+radius = 6.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_auwsv"]
+radius = 23.0217
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8uf12"]
+radius = 11.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_haro7"]
+radius = 53.0848
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_po0sg"]
+radius = 71.0211
+
+[node name="BaseEnemy" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 4
+script = ExtResource("1_1dp5w")
+hp = 150
+damage = 20
+projectile_speed = 70
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0.5, -4)
+sprite_frames = SubResource("SpriteFrames_56vhr")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -4)
+shape = SubResource("CircleShape2D_1dp5w")
+
+[node name="HoverArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HoverArea"]
+position = Vector2(0, -4)
+shape = SubResource("CircleShape2D_auwsv")
+
+[node name="CloseArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CloseArea"]
+position = Vector2(0, -4)
+shape = SubResource("CircleShape2D_8uf12")
+debug_color = Color(0.804138, 0.375431, 0.486054, 0.42)
+
+[node name="HoverDirectionTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[node name="EnemyProjectileShooter" parent="." instance=ExtResource("8_auwsv")]
+position = Vector2(0, -4)
+
+[node name="ShootArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ShootArea"]
+position = Vector2(0, -4)
+shape = SubResource("CircleShape2D_haro7")
+debug_color = Color(0, 0.632305, 0.452931, 0.42)
+
+[node name="FindPlayer" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FindPlayer"]
+position = Vector2(0, -4)
+shape = SubResource("CircleShape2D_po0sg")
+debug_color = Color(0.65257, 0.518541, 9.62615e-07, 0.42)
+
+[node name="AnimationTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[connection signal="body_entered" from="HoverArea" to="." method="_on_hover_area_body_entered"]
+[connection signal="body_exited" from="HoverArea" to="." method="_on_hover_area_body_exited"]
+[connection signal="body_entered" from="CloseArea" to="." method="_on_close_area_body_entered"]
+[connection signal="body_exited" from="CloseArea" to="." method="_on_close_area_body_exited"]
+[connection signal="body_entered" from="ShootArea" to="EnemyProjectileShooter" method="_on_shoot_area_body_entered"]
+[connection signal="body_exited" from="ShootArea" to="EnemyProjectileShooter" method="_on_shoot_area_body_exited"]
+[connection signal="body_entered" from="FindPlayer" to="." method="_on_find_player_body_entered"]

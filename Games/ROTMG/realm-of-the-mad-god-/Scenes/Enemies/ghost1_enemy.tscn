@@ -1,0 +1,79 @@
+[gd_scene load_steps=12 format=3 uid="uid://cx8vleynoqnxj"]
+
+[ext_resource type="PackedScene" uid="uid://dknrk4c1ivuv" path="res://Scenes/Enemies/base_enemy.tscn" id="1_366os"]
+[ext_resource type="Script" uid="uid://bvxx7y2m0slxy" path="res://Scenes/Enemies/ghost_1_enemy.gd" id="2_76pwq"]
+[ext_resource type="Texture2D" uid="uid://dtuuuhk12yc3d" path="res://Assets/ORYX sprites/Sliced/Character/ghost_atk_l_1.png" id="2_caiwq"]
+[ext_resource type="Texture2D" uid="uid://cjea03dn43bv2" path="res://Assets/ORYX sprites/Sliced/Character/ghost_atk_l_2.png" id="3_7xhfu"]
+[ext_resource type="Texture2D" uid="uid://cmt3goslv18js" path="res://Assets/ORYX sprites/Sliced/Character/ghost_atk_r_1.png" id="4_ermn5"]
+[ext_resource type="Texture2D" uid="uid://bgnanu28aj2w" path="res://Assets/ORYX sprites/Sliced/Character/ghost_atk_r_2.png" id="5_cy7x0"]
+[ext_resource type="Texture2D" uid="uid://0pux62yt3w3x" path="res://Assets/ORYX sprites/Sliced/Character/ghost_atk_d_1.png" id="6_v2vwf"]
+[ext_resource type="Texture2D" uid="uid://bchyn2fmhjhva" path="res://Assets/ORYX sprites/Sliced/Character/ghost_atk_d_2.png" id="7_1ykts"]
+[ext_resource type="PackedScene" uid="uid://c6cvggg6lxrks" path="res://Scenes/Enemy Projectiles/ghost1_projectile.tscn" id="8_35caa"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_v1mop"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_caiwq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_7xhfu")
+}],
+"loop": true,
+"name": &"atk left",
+"speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_ermn5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_cy7x0")
+}],
+"loop": true,
+"name": &"atk right",
+"speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_v2vwf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_1ykts")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 3.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jllfq"]
+radius = 5.0
+
+[node name="Ghost1Enemy" instance=ExtResource("1_366os")]
+script = ExtResource("2_76pwq")
+hp = 70
+dex = 1.2
+speed = 45
+damage = 15
+projectile_speed = 30
+exp_worth = 10
+
+[node name="AnimatedSprite2D" parent="." index="0"]
+position = Vector2(-0.5, -4)
+sprite_frames = SubResource("SpriteFrames_v1mop")
+animation = &"atk left"
+
+[node name="CollisionShape2D" parent="." index="1"]
+shape = SubResource("CircleShape2D_jllfq")
+
+[node name="HoverArea" parent="." index="2"]
+visible = false
+
+[node name="CloseArea" parent="." index="3"]
+visible = false
+
+[node name="EnemyProjectileShooter" parent="." index="5"]
+projectile_scene = ExtResource("8_35caa")
+
+[node name="FindPlayer" parent="." index="7"]
+visible = false

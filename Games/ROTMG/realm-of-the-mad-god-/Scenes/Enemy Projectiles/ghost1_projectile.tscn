@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://c6cvggg6lxrks"]
+
+[ext_resource type="PackedScene" uid="uid://dijafc14l8gst" path="res://Scenes/Enemy Projectiles/enemy_projectile.tscn" id="1_heoqg"]
+[ext_resource type="Texture2D" uid="uid://cfdvuqf1xdogc" path="res://Assets/ORYX sprites/Sliced/FX/proj_blue_ball.png" id="2_2k4gi"]
+
+[node name="ghost1_projectile" instance=ExtResource("1_heoqg")]
+
+[node name="Sprite2D" parent="." index="0"]
+texture = ExtResource("2_2k4gi")
+
+[node name="CollisionShape2D" parent="HitBox" index="0"]
+position = Vector2(0, 0)
+
+[node name="RayCast2D" parent="HitBox" index="1"]
+position = Vector2(-3.33333, 0)

@@ -1,0 +1,458 @@
+[gd_scene load_steps=39 format=3 uid="uid://bcgoo0ssiwd6q"]
+
+[ext_resource type="Texture2D" uid="uid://s7kb0vt2dah2" path="res://Assets/ORYX sprites/Sliced/Character/wizard_idle_d_1.png" id="1_8erm5"]
+[ext_resource type="Script" uid="uid://brm6t1f2t2b6o" path="res://Scripts/player.gd" id="1_f1ek2"]
+[ext_resource type="Texture2D" uid="uid://eyq8hmxovbf6" path="res://Assets/ORYX sprites/Sliced/Character/wizard_idle_d_2.png" id="2_f1ek2"]
+[ext_resource type="Texture2D" uid="uid://ci6lxoxs2kf04" path="res://Assets/ORYX sprites/Sliced/Character/wizard_atk_l_1.png" id="2_fs7ks"]
+[ext_resource type="Texture2D" uid="uid://bswfq1e4vlp22" path="res://Assets/ORYX sprites/Sliced/Character/wizard_atk_d_1.png" id="2_p1odr"]
+[ext_resource type="Texture2D" uid="uid://bnj36wokek84l" path="res://Assets/ORYX sprites/Sliced/Character/wizard_atk_d_2.png" id="3_0gysh"]
+[ext_resource type="Texture2D" uid="uid://bqfuqysw7a7bm" path="res://Assets/ORYX sprites/Sliced/Character/wizard_atk_l_2.png" id="3_l6n3p"]
+[ext_resource type="Texture2D" uid="uid://cgllri8xwpyax" path="res://Assets/ORYX sprites/Sliced/Character/wizard_idle_l_1.png" id="3_tx1dd"]
+[ext_resource type="Texture2D" uid="uid://evvo5ues7q1t" path="res://Assets/ORYX sprites/Sliced/Character/wizard_idle_l_2.png" id="4_gymyn"]
+[ext_resource type="Texture2D" uid="uid://bgc73af1pq6l8" path="res://Assets/ORYX sprites/Sliced/Character/wizard_idle_r_1.png" id="5_pu2lt"]
+[ext_resource type="Texture2D" uid="uid://qa32fustes8o" path="res://Assets/ORYX sprites/Sliced/Character/wizard_idle_r_2.png" id="6_ukyrk"]
+[ext_resource type="Texture2D" uid="uid://b5s5agpp2asvi" path="res://Assets/ORYX sprites/Sliced/Character/wizard_atk_r_1.png" id="6_vfarp"]
+[ext_resource type="Texture2D" uid="uid://kgbc3s72qht3" path="res://Assets/ORYX sprites/Sliced/Character/wizard_idle_u_1.png" id="7_7dp3o"]
+[ext_resource type="Texture2D" uid="uid://cf1chantb7kev" path="res://Assets/ORYX sprites/Sliced/Character/wizard_atk_r_2.png" id="7_y6uwr"]
+[ext_resource type="Texture2D" uid="uid://cllwpdt4wsue7" path="res://Assets/ORYX sprites/Sliced/Character/wizard_atk_u_1.png" id="8_83xs0"]
+[ext_resource type="Texture2D" uid="uid://d0lbmv26uj3g7" path="res://Assets/ORYX sprites/Sliced/Character/wizard_idle_u_2.png" id="8_h4iuc"]
+[ext_resource type="Texture2D" uid="uid://dmufxvap5tykl" path="res://Assets/ORYX sprites/Sliced/Character/wizard_atk_u_2.png" id="9_ypfnu"]
+[ext_resource type="Texture2D" uid="uid://c8nbj1tw0ipj" path="res://Assets/ORYX sprites/Sliced/Character/wizard_walk_r_2.png" id="10_qqcod"]
+[ext_resource type="Texture2D" uid="uid://baic56smcwtah" path="res://Assets/ORYX sprites/Sliced/Character/wizard_walk_u_2.png" id="11_igrcy"]
+[ext_resource type="Texture2D" uid="uid://cyit8qypgtpqp" path="res://Assets/ORYX sprites/Sliced/Character/wizard_walk_d_2.png" id="12_fs7ks"]
+[ext_resource type="Texture2D" uid="uid://btibuaqhyktwg" path="res://Assets/ORYX sprites/Sliced/Character/wizard_walk_l_2.png" id="13_l6n3p"]
+[ext_resource type="Texture2D" uid="uid://dl648ocl8rcxp" path="res://Assets/ORYX sprites/Sliced/Character/wizard_walk_r_1.png" id="14_olqyp"]
+[ext_resource type="Texture2D" uid="uid://cp4yxfi8pjly7" path="res://Assets/ORYX sprites/Sliced/Character/wizard_walk_u_1.png" id="15_wpjfl"]
+[ext_resource type="Texture2D" uid="uid://d2ow4vk3wp0r2" path="res://Assets/ORYX sprites/Sliced/Character/wizard_walk_d_1.png" id="16_bi64h"]
+[ext_resource type="Texture2D" uid="uid://byidefbv5v1hf" path="res://Assets/ORYX sprites/Sliced/Character/wizard_walk_l_1.png" id="17_2ijsl"]
+[ext_resource type="PackedScene" uid="uid://clwibw0s8ln55" path="res://Scenes/projectile_shooter.tscn" id="26_0gysh"]
+[ext_resource type="PackedScene" uid="uid://dky77s5wixtbk" path="res://Scenes/sorc_ability_shooter.tscn" id="27_vfarp"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_fd4e3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_p1odr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_0gysh")
+}],
+"loop": true,
+"name": &"atk down",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_fs7ks")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_l6n3p")
+}],
+"loop": true,
+"name": &"atk left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_vfarp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_y6uwr")
+}],
+"loop": true,
+"name": &"atk right",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_83xs0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_ypfnu")
+}],
+"loop": true,
+"name": &"atk up",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_8erm5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_f1ek2")
+}],
+"loop": true,
+"name": &"idle down",
+"speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_tx1dd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_gymyn")
+}],
+"loop": true,
+"name": &"idle left",
+"speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_pu2lt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_ukyrk")
+}],
+"loop": true,
+"name": &"idle right",
+"speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_7dp3o")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_h4iuc")
+}],
+"loop": true,
+"name": &"idle up",
+"speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("10_qqcod")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_igrcy")
+}],
+"loop": true,
+"name": &"walk down",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("12_fs7ks")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_l6n3p")
+}],
+"loop": true,
+"name": &"walk left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("14_olqyp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_wpjfl")
+}],
+"loop": true,
+"name": &"walk right",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("16_bi64h")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_2ijsl")
+}],
+"loop": true,
+"name": &"walk up",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8erm5"]
+size = Vector2(6, 8)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0gysh"]
+bg_color = Color(0.211765, 0.211765, 0.211765, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vfarp"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y6uwr"]
+bg_color = Color(0.329412, 0.329412, 0.329412, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_83xs0"]
+bg_color = Color(0.345098, 0.498039, 0.14902, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ypfnu"]
+bg_color = Color(0.329412, 0.329412, 0.329412, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xuaoq"]
+bg_color = Color(0.890196, 0.192157, 0.211765, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wohnl"]
+bg_color = Color(0.329412, 0.329412, 0.329412, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_36dho"]
+bg_color = Color(0.384314, 0.517647, 0.854902, 1)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0gysh"]
+radius = 4.0
+
+[node name="Player" type="CharacterBody2D"]
+collision_mask = 13
+motion_mode = 1
+script = ExtResource("1_f1ek2")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -4)
+sprite_frames = SubResource("SpriteFrames_fd4e3")
+animation = &"idle down"
+autoplay = "idle down"
+frame_progress = 0.198629
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -4)
+shape = SubResource("RectangleShape2D_8erm5")
+
+[node name="CameraAnchor" type="Node2D" parent="."]
+position = Vector2(0, -4)
+
+[node name="Camera2DCenter" type="Camera2D" parent="CameraAnchor"]
+position = Vector2(19.5, 0)
+ignore_rotation = false
+zoom = Vector2(7, 7)
+
+[node name="Panel" type="Panel" parent="CameraAnchor/Camera2DCenter"]
+z_index = 999
+offset_left = 43.0
+offset_top = -64.0
+offset_right = 83.0
+offset_bottom = 63.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_0gysh")
+
+[node name="mapplaceholder" type="Panel" parent="CameraAnchor/Camera2DCenter/Panel"]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 3.0
+offset_right = 38.0
+offset_bottom = 43.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_vfarp")
+
+[node name="ExpBar" type="ProgressBar" parent="CameraAnchor/Camera2DCenter/Panel"]
+layout_mode = 2
+offset_left = 1.0
+offset_top = 53.0
+offset_right = 38.0
+offset_bottom = 57.0
+theme_override_font_sizes/font_size = 3
+theme_override_styles/background = SubResource("StyleBoxFlat_y6uwr")
+theme_override_styles/fill = SubResource("StyleBoxFlat_83xs0")
+show_percentage = false
+
+[node name="HpBar" type="ProgressBar" parent="CameraAnchor/Camera2DCenter/Panel"]
+layout_mode = 2
+offset_left = 1.0
+offset_top = 58.0
+offset_right = 38.0
+offset_bottom = 62.0
+theme_override_font_sizes/font_size = 3
+theme_override_styles/background = SubResource("StyleBoxFlat_ypfnu")
+theme_override_styles/fill = SubResource("StyleBoxFlat_xuaoq")
+show_percentage = false
+
+[node name="MpBar" type="ProgressBar" parent="CameraAnchor/Camera2DCenter/Panel"]
+layout_mode = 2
+offset_left = 1.0
+offset_top = 63.0
+offset_right = 38.0
+offset_bottom = 67.0
+theme_override_font_sizes/font_size = 3
+theme_override_styles/background = SubResource("StyleBoxFlat_wohnl")
+theme_override_styles/fill = SubResource("StyleBoxFlat_36dho")
+show_percentage = false
+
+[node name="GridContainer" type="GridContainer" parent="CameraAnchor/Camera2DCenter/Panel"]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 54.0
+offset_right = 40.0
+offset_bottom = 68.0
+theme_override_constants/h_separation = 0
+theme_override_constants/v_separation = 1
+
+[node name="Level" type="Label" parent="CameraAnchor/Camera2DCenter/Panel/GridContainer"]
+layout_mode = 2
+theme_override_constants/line_spacing = 2
+theme_override_font_sizes/font_size = 3
+text = "Level"
+
+[node name="HP" type="Label" parent="CameraAnchor/Camera2DCenter/Panel/GridContainer"]
+layout_mode = 2
+theme_override_constants/line_spacing = 2
+theme_override_font_sizes/font_size = 3
+text = "HP"
+
+[node name="MP" type="Label" parent="CameraAnchor/Camera2DCenter/Panel/GridContainer"]
+layout_mode = 2
+theme_override_constants/line_spacing = 2
+theme_override_font_sizes/font_size = 3
+text = "MP"
+
+[node name="MiscStatContainer" type="GridContainer" parent="CameraAnchor/Camera2DCenter/Panel"]
+layout_direction = 2
+layout_mode = 1
+anchors_preset = -1
+offset_left = 4.0
+offset_top = 69.0
+offset_right = 45.5
+offset_bottom = 86.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/h_separation = 13
+theme_override_constants/v_separation = 1
+columns = 2
+
+[node name="Att_label" type="Label" parent="CameraAnchor/Camera2DCenter/Panel/MiscStatContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 3
+text = "ATT"
+horizontal_alignment = 2
+
+[node name="Def_label" type="Label" parent="CameraAnchor/Camera2DCenter/Panel/MiscStatContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 3
+text = "DEF"
+horizontal_alignment = 2
+
+[node name="Spd_label" type="Label" parent="CameraAnchor/Camera2DCenter/Panel/MiscStatContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 3
+text = "SPD"
+
+[node name="Dex_label" type="Label" parent="CameraAnchor/Camera2DCenter/Panel/MiscStatContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 3
+text = "DEX"
+horizontal_alignment = 2
+
+[node name="Vit_label" type="Label" parent="CameraAnchor/Camera2DCenter/Panel/MiscStatContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 3
+text = "VIT"
+horizontal_alignment = 2
+
+[node name="Wis_label" type="Label" parent="CameraAnchor/Camera2DCenter/Panel/MiscStatContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 3
+text = "WIS"
+horizontal_alignment = 2
+
+[node name="MiscDashContainer" type="GridContainer" parent="CameraAnchor/Camera2DCenter/Panel"]
+layout_mode = 2
+offset_left = 10.5
+offset_top = 69.0
+offset_right = 35.5
+offset_bottom = 83.0
+theme_override_constants/h_separation = 18
+theme_override_constants/v_separation = 1
+columns = 2
+
+[node name="dash1" type="Label" parent="CameraAnchor/Camera2DCenter/Panel/MiscDashContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 3
+text = "-"
+horizontal_alignment = 2
+
+[node name="dash2" type="Label" parent="CameraAnchor/Camera2DCenter/Panel/MiscDashContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 3
+text = "-"
+horizontal_alignment = 2
+
+[node name="dash3" type="Label" parent="CameraAnchor/Camera2DCenter/Panel/MiscDashContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 3
+text = "-"
+horizontal_alignment = 2
+
+[node name="dash4" type="Label" parent="CameraAnchor/Camera2DCenter/Panel/MiscDashContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 3
+text = "-"
+horizontal_alignment = 2
+
+[node name="dash5" type="Label" parent="CameraAnchor/Camera2DCenter/Panel/MiscDashContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 3
+text = "-"
+horizontal_alignment = 2
+
+[node name="dash6" type="Label" parent="CameraAnchor/Camera2DCenter/Panel/MiscDashContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 3
+text = "-"
+horizontal_alignment = 2
+
+[node name="StatContainer" type="GridContainer" parent="CameraAnchor/Camera2DCenter/Panel"]
+layout_mode = 0
+offset_left = 13.0
+offset_top = 69.0
+offset_right = 51.0
+offset_bottom = 86.0
+theme_override_constants/h_separation = 15
+theme_override_constants/v_separation = 1
+columns = 2
+
+[node name="Att_num" type="Label" parent="CameraAnchor/Camera2DCenter/Panel/StatContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 3
+text = "0"
+horizontal_alignment = 2
+
+[node name="Def_num" type="Label" parent="CameraAnchor/Camera2DCenter/Panel/StatContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 3
+text = "0"
+
+[node name="Spd_num" type="Label" parent="CameraAnchor/Camera2DCenter/Panel/StatContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 3
+text = "0"
+horizontal_alignment = 2
+
+[node name="Dex_num" type="Label" parent="CameraAnchor/Camera2DCenter/Panel/StatContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 3
+text = "0"
+horizontal_alignment = 2
+
+[node name="Vit_num" type="Label" parent="CameraAnchor/Camera2DCenter/Panel/StatContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 3
+text = "0"
+horizontal_alignment = 2
+
+[node name="Wis_num" type="Label" parent="CameraAnchor/Camera2DCenter/Panel/StatContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 3
+text = "0"
+horizontal_alignment = 2
+
+[node name="ProjectileShooter" parent="." instance=ExtResource("26_0gysh")]
+position = Vector2(0, -4)
+
+[node name="HurtBox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+position = Vector2(0, -4)
+shape = SubResource("CircleShape2D_0gysh")
+debug_color = Color(0.993943, 0, 0.229909, 0.42)
+
+[node name="AbilityShooter" parent="." instance=ExtResource("27_vfarp")]
+position = Vector2(0, -4)
+metadata/_edit_lock_ = true
+
+[node name="VitTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="WisTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="area_entered" from="HurtBox" to="." method="_on_hurt_box_area_entered"]

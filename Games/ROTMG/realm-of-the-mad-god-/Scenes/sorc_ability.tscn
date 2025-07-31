@@ -1,0 +1,53 @@
+[gd_scene load_steps=8 format=3 uid="uid://ducjf3uo36qdb"]
+
+[ext_resource type="Script" uid="uid://drevfjs5c8job" path="res://sorc_ability.gd" id="1_jfgmw"]
+[ext_resource type="Texture2D" uid="uid://p5aepkb6638h" path="res://Assets/ORYX sprites/Sliced/FX/glow_2.png" id="2_8g4ea"]
+[ext_resource type="Texture2D" uid="uid://5tfr34js0m7x" path="res://Assets/ORYX sprites/Sliced/FX/glow_1.png" id="3_h8pj8"]
+[ext_resource type="Texture2D" uid="uid://bnklma53d5rpo" path="res://Assets/ORYX sprites/Sliced/FX/explode_blue_1.png" id="4_oe4ea"]
+[ext_resource type="Texture2D" uid="uid://dyovgx155nllb" path="res://Assets/ORYX sprites/Sliced/FX/explode_blue_2.png" id="5_7adjp"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_j2y55"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_8g4ea")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_h8pj8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_oe4ea")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_7adjp")
+}],
+"loop": true,
+"name": &"active",
+"speed": 7.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ednma"]
+radius = 3.0
+
+[node name="SorcAbility" type="Node2D"]
+script = ExtResource("1_jfgmw")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_j2y55")
+animation = &"active"
+autoplay = "active"
+frame_progress = 0.162014
+
+[node name="HitBox" type="Area2D" parent="."]
+collision_layer = 6
+collision_mask = 6
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+shape = SubResource("CircleShape2D_ednma")
+
+[node name="duration" type="Timer" parent="."]
+wait_time = 0.5
+autostart = true
+
+[connection signal="body_entered" from="HitBox" to="." method="_on_hit_box_body_entered"]
+[connection signal="timeout" from="duration" to="." method="_on_duration_timeout"]
