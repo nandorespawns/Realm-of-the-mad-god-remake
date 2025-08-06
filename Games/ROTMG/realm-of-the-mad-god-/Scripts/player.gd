@@ -47,6 +47,8 @@ var max_hp: int = 100
 var mp: int = 100
 var max_mp: int = 100
 var dex: float = 23
+var weapon_dex_mod: float = 0
+var total_dex = dex + weapon_dex_mod
 var damage = 17
 var vitality: float = 17
 var wisdom: float = 23
@@ -167,6 +169,8 @@ func _process(delta: float) -> void:
 	getsLevel()
 	
 	regenStats()
+	
+	#print(total_dex)
 
 func getsLevel():	
 	if current_exp >= exp_to_level:
@@ -179,7 +183,7 @@ func getsLevel():
 		max_mp += 10
 		mp = max_mp
 		damage += 2
-		dex -= 0.03
+		dex += 1
 		vitality += 2
 		wisdom += 1
 		speed += 1

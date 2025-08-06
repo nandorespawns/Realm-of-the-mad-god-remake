@@ -1,0 +1,32 @@
+[gd_scene load_steps=4 format=3 uid="uid://dtfeqw5mtixy7"]
+
+[ext_resource type="Script" uid="uid://bws27xgdxtjsg" path="res://Scenes/sorc2_projectile.gd" id="1_4x0ey"]
+[ext_resource type="Texture2D" uid="uid://dfmria2e4kucr" path="res://Assets/ORYX sprites/Sliced/FX/proj_green_x.png" id="2_8c05b"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qajki"]
+radius = 3.0
+
+[node name="sorc2_projectile" type="Node2D"]
+script = ExtResource("1_4x0ey")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_8c05b")
+
+[node name="RangeTimer" type="Timer" parent="."]
+wait_time = 0.625
+autostart = true
+
+[node name="HitBox" type="Area2D" parent="."]
+collision_layer = 6
+collision_mask = 6
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+position = Vector2(1, 0)
+shape = SubResource("CircleShape2D_qajki")
+
+[node name="RayCast2D" type="RayCast2D" parent="HitBox"]
+position = Vector2(-2, 0)
+target_position = Vector2(3, 0)
+collision_mask = 6
+
+[connection signal="body_entered" from="HitBox" to="." method="_on_hit_box_body_entered"]

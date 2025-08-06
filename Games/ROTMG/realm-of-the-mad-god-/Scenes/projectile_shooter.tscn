@@ -1,11 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://clwibw0s8ln55"]
+[gd_scene load_steps=2 format=3 uid="uid://clwibw0s8ln55"]
 
 [ext_resource type="Script" uid="uid://kybkuu0iptr6" path="res://Scripts/projectile_shooter.gd" id="1_lq4xd"]
-[ext_resource type="PackedScene" uid="uid://cod0mho4sbaxc" path="res://Scenes/projectile.tscn" id="2_h4h1m"]
 
 [node name="ProjectileShooter" type="Node2D"]
 script = ExtResource("1_lq4xd")
-projectile_scene = ExtResource("2_h4h1m")
 
 [node name="DexTimer" type="Timer" parent="."]
 one_shot = true

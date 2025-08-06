@@ -9,6 +9,7 @@ var damage: int
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	Global.sorc1_projectile = self
 	#this gets called in the projectileshooter to make sure it's visibility is under Player
 	z_index = zindex
 	

@@ -2,6 +2,16 @@ extends Node
 
 var player: Node2D = null
 
+
+#sorcerer weapons/projectiles
+var sorc1_projectile = preload("res://Scenes/sorc1_projectile.tscn")
+var sorc2_projectile = preload("res://Scenes/sorc2_projectile.tscn")
+
+
+
+
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.

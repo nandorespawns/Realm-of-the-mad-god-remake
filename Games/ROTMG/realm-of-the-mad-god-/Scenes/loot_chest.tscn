@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://cuavfm22cdcpq"]
+
+[ext_resource type="Texture2D" uid="uid://d02s6oj4hgnpf" path="res://Assets/ORYX sprites/Sliced/World/object_chest_closed.png" id="1_v2fo2"]
+
+[node name="loot_chest" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_v2fo2")

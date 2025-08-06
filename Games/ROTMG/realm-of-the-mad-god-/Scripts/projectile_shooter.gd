@@ -1,7 +1,8 @@
 extends "res://generic_projectile_shooter.gd"
 
 
-@export var projectile_scene: PackedScene
+var projectile_scene = Global.sorc2_projectile
+#@export var projectile_scene: PackedScene
 
 func shootProjectile():
 	#projectiles aim at mouse
@@ -18,7 +19,6 @@ func shootProjectile():
 	if isshooting and dex_timer.is_stopped():
 		var dexspeed = 1/(1.5+6.5*(dex/75))
 		dex_timer.start(dexspeed)
-		print(dexspeed)
 		var projectile_instance = projectile_scene.instantiate()
 		
 		projectile_instance.damage = damage
@@ -28,3 +28,7 @@ func shootProjectile():
 		get_tree().root.add_child(projectile_instance)
 		projectile_instance.global_position = global_position
 		projectile_instance.rotation = rotation
+
+
+	
+	
