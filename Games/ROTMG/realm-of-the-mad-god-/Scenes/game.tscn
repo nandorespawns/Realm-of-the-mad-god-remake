@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://btycukl0r0clh"]
+[gd_scene load_steps=8 format=3 uid="uid://btycukl0r0clh"]
 
 [ext_resource type="PackedScene" uid="uid://bcgoo0ssiwd6q" path="res://Scenes/player.tscn" id="1_ebmjs"]
 [ext_resource type="Texture2D" uid="uid://yb1vnl0wbymn" path="res://Assets/ORYX sprites/8-Bit_Remaster_World.png" id="1_qxrlw"]
 [ext_resource type="PackedScene" uid="uid://dknrk4c1ivuv" path="res://Scenes/Enemies/base_enemy.tscn" id="3_wrm1d"]
 [ext_resource type="PackedScene" uid="uid://cx8vleynoqnxj" path="res://Scenes/Enemies/ghost1_enemy.tscn" id="4_3dryh"]
+[ext_resource type="PackedScene" uid="uid://cuavfm22cdcpq" path="res://Scenes/loot_chest.tscn" id="5_wowpa"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wrm1d"]
 texture = ExtResource("1_qxrlw")
@@ -282,8 +283,14 @@ layer_0/tile_data = PackedInt32Array(0, 1, 1, 1, 1, 1, 2, 1, 0, 3, 1, 1, 4, 1, 1
 position = Vector2(21, 21)
 
 [node name="Enemy" parent="." instance=ExtResource("3_wrm1d")]
-position = Vector2(124, 102)
+position = Vector2(166, 195)
 
 [node name="TestEnemy" parent="." instance=ExtResource("4_3dryh")]
-position = Vector2(152, 63)
+position = Vector2(194, 156)
 projectile_speed = 60
+
+[node name="loot_chest" parent="." instance=ExtResource("5_wowpa")]
+position = Vector2(145, 57)
+
+[node name="loot_chest2" parent="." instance=ExtResource("5_wowpa")]
+position = Vector2(172, 50)

@@ -7,6 +7,7 @@
 radius = 3.0
 
 [node name="sorc2_projectile" type="Node2D"]
+scale = Vector2(0.75, 0.75)
 script = ExtResource("1_4x0ey")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -29,4 +30,5 @@ position = Vector2(-2, 0)
 target_position = Vector2(3, 0)
 collision_mask = 6
 
+[connection signal="timeout" from="RangeTimer" to="." method="_on_range_timer_timeout"]
 [connection signal="body_entered" from="HitBox" to="." method="_on_hit_box_body_entered"]

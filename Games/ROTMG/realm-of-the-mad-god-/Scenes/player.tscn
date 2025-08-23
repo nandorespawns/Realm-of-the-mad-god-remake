@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://bcgoo0ssiwd6q"]
+[gd_scene load_steps=44 format=3 uid="uid://bcgoo0ssiwd6q"]
 
 [ext_resource type="Texture2D" uid="uid://s7kb0vt2dah2" path="res://Assets/ORYX sprites/Sliced/Character/wizard_idle_d_1.png" id="1_8erm5"]
 [ext_resource type="Script" uid="uid://brm6t1f2t2b6o" path="res://Scripts/player.gd" id="1_f1ek2"]
@@ -27,6 +27,7 @@
 [ext_resource type="Texture2D" uid="uid://byidefbv5v1hf" path="res://Assets/ORYX sprites/Sliced/Character/wizard_walk_l_1.png" id="17_2ijsl"]
 [ext_resource type="PackedScene" uid="uid://clwibw0s8ln55" path="res://Scenes/projectile_shooter.tscn" id="26_0gysh"]
 [ext_resource type="PackedScene" uid="uid://dky77s5wixtbk" path="res://Scenes/sorc_ability_shooter.tscn" id="27_vfarp"]
+[ext_resource type="Script" uid="uid://cty1winpveggt" path="res://Scenes/drag_drop.gd" id="28_y6uwr"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_fd4e3"]
 animations = [{
@@ -190,15 +191,34 @@ bg_color = Color(0.329412, 0.329412, 0.329412, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_36dho"]
 bg_color = Color(0.384314, 0.517647, 0.854902, 1)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yh6i2"]
+bg_color = Color(0.329412, 0.329412, 0.329412, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_11gg7"]
+bg_color = Color(0.109804, 0.109804, 0.109804, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nv4vc"]
+bg_color = Color(0.211765, 0.211765, 0.211765, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8gxox"]
+bg_color = Color(0.211765, 0.211765, 0.211765, 1)
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_0gysh"]
 radius = 4.0
 
 [node name="Player" type="CharacterBody2D"]
+z_index = 1
 collision_mask = 13
 motion_mode = 1
 script = ExtResource("1_f1ek2")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+unique_name_in_owner = true
 position = Vector2(0, -4)
 sprite_frames = SubResource("SpriteFrames_fd4e3")
 animation = &"idle down"
@@ -218,8 +238,8 @@ ignore_rotation = false
 zoom = Vector2(7, 7)
 
 [node name="Panel" type="Panel" parent="CameraAnchor/Camera2DCenter"]
-z_index = 999
-offset_left = 43.0
+z_index = 998
+offset_left = 44.0
 offset_top = -64.0
 offset_right = 83.0
 offset_bottom = 63.0
@@ -229,16 +249,16 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_0gysh")
 layout_mode = 0
 offset_left = 1.0
 offset_top = 3.0
-offset_right = 38.0
+offset_right = 37.0
 offset_bottom = 43.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_vfarp")
 
 [node name="ExpBar" type="ProgressBar" parent="CameraAnchor/Camera2DCenter/Panel"]
 layout_mode = 2
-offset_left = 1.0
-offset_top = 53.0
-offset_right = 38.0
-offset_bottom = 57.0
+offset_left = 2.0
+offset_top = 50.0
+offset_right = 37.0
+offset_bottom = 54.0
 theme_override_font_sizes/font_size = 3
 theme_override_styles/background = SubResource("StyleBoxFlat_y6uwr")
 theme_override_styles/fill = SubResource("StyleBoxFlat_83xs0")
@@ -246,10 +266,10 @@ show_percentage = false
 
 [node name="HpBar" type="ProgressBar" parent="CameraAnchor/Camera2DCenter/Panel"]
 layout_mode = 2
-offset_left = 1.0
-offset_top = 58.0
-offset_right = 38.0
-offset_bottom = 62.0
+offset_left = 2.0
+offset_top = 55.0
+offset_right = 37.0
+offset_bottom = 59.0
 theme_override_font_sizes/font_size = 3
 theme_override_styles/background = SubResource("StyleBoxFlat_ypfnu")
 theme_override_styles/fill = SubResource("StyleBoxFlat_xuaoq")
@@ -257,10 +277,10 @@ show_percentage = false
 
 [node name="MpBar" type="ProgressBar" parent="CameraAnchor/Camera2DCenter/Panel"]
 layout_mode = 2
-offset_left = 1.0
-offset_top = 63.0
-offset_right = 38.0
-offset_bottom = 67.0
+offset_left = 2.0
+offset_top = 60.0
+offset_right = 37.0
+offset_bottom = 64.0
 theme_override_font_sizes/font_size = 3
 theme_override_styles/background = SubResource("StyleBoxFlat_wohnl")
 theme_override_styles/fill = SubResource("StyleBoxFlat_36dho")
@@ -268,11 +288,11 @@ show_percentage = false
 
 [node name="GridContainer" type="GridContainer" parent="CameraAnchor/Camera2DCenter/Panel"]
 layout_mode = 0
-offset_left = 1.0
-offset_top = 54.0
-offset_right = 40.0
-offset_bottom = 68.0
-theme_override_constants/h_separation = 0
+offset_left = 2.0
+offset_top = 51.0
+offset_right = 41.0
+offset_bottom = 65.0
+theme_override_constants/h_separation = 1
 theme_override_constants/v_separation = 1
 
 [node name="Level" type="Label" parent="CameraAnchor/Camera2DCenter/Panel/GridContainer"]
@@ -297,141 +317,500 @@ text = "MP"
 layout_direction = 2
 layout_mode = 1
 anchors_preset = -1
-offset_left = 4.0
-offset_top = 69.0
-offset_right = 45.5
-offset_bottom = 86.0
+offset_left = 5.0
+offset_top = 67.0
+offset_right = 46.5
+offset_bottom = 84.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/h_separation = 13
+theme_override_constants/h_separation = 14
 theme_override_constants/v_separation = 1
 columns = 2
 
 [node name="Att_label" type="Label" parent="CameraAnchor/Camera2DCenter/Panel/MiscStatContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 3
+theme_override_font_sizes/font_size = 2
 text = "ATT"
 horizontal_alignment = 2
 
 [node name="Def_label" type="Label" parent="CameraAnchor/Camera2DCenter/Panel/MiscStatContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 3
+theme_override_font_sizes/font_size = 2
 text = "DEF"
 horizontal_alignment = 2
 
 [node name="Spd_label" type="Label" parent="CameraAnchor/Camera2DCenter/Panel/MiscStatContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 3
+theme_override_font_sizes/font_size = 2
 text = "SPD"
 
 [node name="Dex_label" type="Label" parent="CameraAnchor/Camera2DCenter/Panel/MiscStatContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 3
+theme_override_font_sizes/font_size = 2
 text = "DEX"
 horizontal_alignment = 2
 
 [node name="Vit_label" type="Label" parent="CameraAnchor/Camera2DCenter/Panel/MiscStatContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 3
+theme_override_font_sizes/font_size = 2
 text = "VIT"
 horizontal_alignment = 2
 
 [node name="Wis_label" type="Label" parent="CameraAnchor/Camera2DCenter/Panel/MiscStatContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 3
+theme_override_font_sizes/font_size = 2
 text = "WIS"
 horizontal_alignment = 2
 
 [node name="MiscDashContainer" type="GridContainer" parent="CameraAnchor/Camera2DCenter/Panel"]
 layout_mode = 2
-offset_left = 10.5
-offset_top = 69.0
-offset_right = 35.5
-offset_bottom = 83.0
+offset_left = 9.5
+offset_top = 67.0
+offset_right = 34.5
+offset_bottom = 81.0
 theme_override_constants/h_separation = 18
 theme_override_constants/v_separation = 1
 columns = 2
 
 [node name="dash1" type="Label" parent="CameraAnchor/Camera2DCenter/Panel/MiscDashContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 3
+theme_override_font_sizes/font_size = 2
 text = "-"
 horizontal_alignment = 2
 
 [node name="dash2" type="Label" parent="CameraAnchor/Camera2DCenter/Panel/MiscDashContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 3
+theme_override_font_sizes/font_size = 2
 text = "-"
 horizontal_alignment = 2
 
 [node name="dash3" type="Label" parent="CameraAnchor/Camera2DCenter/Panel/MiscDashContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 3
+theme_override_font_sizes/font_size = 2
 text = "-"
 horizontal_alignment = 2
 
 [node name="dash4" type="Label" parent="CameraAnchor/Camera2DCenter/Panel/MiscDashContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 3
+theme_override_font_sizes/font_size = 2
 text = "-"
 horizontal_alignment = 2
 
 [node name="dash5" type="Label" parent="CameraAnchor/Camera2DCenter/Panel/MiscDashContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 3
+theme_override_font_sizes/font_size = 2
 text = "-"
 horizontal_alignment = 2
 
 [node name="dash6" type="Label" parent="CameraAnchor/Camera2DCenter/Panel/MiscDashContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 3
+theme_override_font_sizes/font_size = 2
 text = "-"
 horizontal_alignment = 2
 
 [node name="StatContainer" type="GridContainer" parent="CameraAnchor/Camera2DCenter/Panel"]
 layout_mode = 0
-offset_left = 13.0
-offset_top = 69.0
-offset_right = 51.0
-offset_bottom = 86.0
-theme_override_constants/h_separation = 15
+offset_left = 12.0
+offset_top = 67.0
+offset_right = 50.0
+offset_bottom = 84.0
+theme_override_constants/h_separation = 16
 theme_override_constants/v_separation = 1
 columns = 2
 
 [node name="Att_num" type="Label" parent="CameraAnchor/Camera2DCenter/Panel/StatContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 3
+theme_override_font_sizes/font_size = 2
 text = "0"
 horizontal_alignment = 2
 
 [node name="Def_num" type="Label" parent="CameraAnchor/Camera2DCenter/Panel/StatContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 3
+theme_override_font_sizes/font_size = 2
 text = "0"
 
 [node name="Spd_num" type="Label" parent="CameraAnchor/Camera2DCenter/Panel/StatContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 3
+theme_override_font_sizes/font_size = 2
 text = "0"
 horizontal_alignment = 2
 
 [node name="Dex_num" type="Label" parent="CameraAnchor/Camera2DCenter/Panel/StatContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 3
+theme_override_font_sizes/font_size = 2
 text = "0"
 horizontal_alignment = 2
 
 [node name="Vit_num" type="Label" parent="CameraAnchor/Camera2DCenter/Panel/StatContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 3
+theme_override_font_sizes/font_size = 2
 text = "0"
 horizontal_alignment = 2
 
 [node name="Wis_num" type="Label" parent="CameraAnchor/Camera2DCenter/Panel/StatContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 3
+theme_override_font_sizes/font_size = 2
 text = "0"
 horizontal_alignment = 2
+
+[node name="EquipmentSlots" type="Panel" parent="CameraAnchor/Camera2DCenter/Panel"]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 76.0
+offset_right = 37.0
+offset_bottom = 84.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_yh6i2")
+
+[node name="WeaponSlot" type="TextureRect" parent="CameraAnchor/Camera2DCenter/Panel/EquipmentSlots"]
+layout_mode = 0
+offset_left = 0.5
+offset_top = 1.0
+offset_right = 7.5
+offset_bottom = 7.0
+expand_mode = 1
+stretch_mode = 4
+script = ExtResource("28_y6uwr")
+UI_array_name = "equipment"
+
+[node name="AbilitySlot" type="TextureRect" parent="CameraAnchor/Camera2DCenter/Panel/EquipmentSlots"]
+layout_mode = 0
+offset_left = 9.5
+offset_top = 1.0
+offset_right = 16.5
+offset_bottom = 7.0
+expand_mode = 1
+stretch_mode = 4
+script = ExtResource("28_y6uwr")
+UI_array_index = 1
+UI_array_name = "equipment"
+
+[node name="ArmorSlot" type="TextureRect" parent="CameraAnchor/Camera2DCenter/Panel/EquipmentSlots"]
+layout_mode = 0
+offset_left = 18.5
+offset_top = 1.0
+offset_right = 25.5
+offset_bottom = 7.0
+expand_mode = 1
+stretch_mode = 4
+script = ExtResource("28_y6uwr")
+UI_array_index = 2
+UI_array_name = "equipment"
+
+[node name="RingSlot" type="TextureRect" parent="CameraAnchor/Camera2DCenter/Panel/EquipmentSlots"]
+layout_mode = 0
+offset_left = 27.5
+offset_top = 1.0
+offset_right = 34.5
+offset_bottom = 7.0
+expand_mode = 1
+stretch_mode = 4
+script = ExtResource("28_y6uwr")
+UI_array_index = 3
+UI_array_name = "equipment"
+
+[node name="InventorySlots" type="Panel" parent="CameraAnchor/Camera2DCenter/Panel"]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 85.0
+offset_right = 37.0
+offset_bottom = 102.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_yh6i2")
+
+[node name="InvSlot0" type="TextureRect" parent="CameraAnchor/Camera2DCenter/Panel/InventorySlots" groups=["InventorySlots"]]
+layout_mode = 0
+offset_left = 0.5
+offset_top = 1.0
+offset_right = 7.5
+offset_bottom = 7.0
+pivot_offset = Vector2(3.5, 3)
+expand_mode = 1
+stretch_mode = 4
+script = ExtResource("28_y6uwr")
+UI_array_name = "inventory"
+
+[node name="InvSlot1" type="TextureRect" parent="CameraAnchor/Camera2DCenter/Panel/InventorySlots" groups=["InventorySlots"]]
+layout_mode = 0
+offset_left = 9.5
+offset_top = 1.0
+offset_right = 16.5
+offset_bottom = 7.0
+expand_mode = 1
+stretch_mode = 4
+script = ExtResource("28_y6uwr")
+UI_array_index = 1
+UI_array_name = "inventory"
+
+[node name="InvSlot2" type="TextureRect" parent="CameraAnchor/Camera2DCenter/Panel/InventorySlots" groups=["InventorySlots"]]
+layout_mode = 0
+offset_left = 18.5
+offset_top = 1.0
+offset_right = 25.5
+offset_bottom = 7.0
+expand_mode = 1
+stretch_mode = 4
+script = ExtResource("28_y6uwr")
+UI_array_index = 2
+UI_array_name = "inventory"
+
+[node name="InvSlot3" type="TextureRect" parent="CameraAnchor/Camera2DCenter/Panel/InventorySlots" groups=["InventorySlots"]]
+layout_mode = 0
+offset_left = 27.5
+offset_top = 1.0
+offset_right = 34.5
+offset_bottom = 7.0
+expand_mode = 1
+stretch_mode = 4
+script = ExtResource("28_y6uwr")
+UI_array_index = 3
+UI_array_name = "inventory"
+
+[node name="InvSlot4" type="TextureRect" parent="CameraAnchor/Camera2DCenter/Panel/InventorySlots" groups=["InventorySlots"]]
+layout_mode = 0
+offset_left = 0.5
+offset_top = 10.0
+offset_right = 7.5
+offset_bottom = 16.0
+expand_mode = 1
+stretch_mode = 4
+script = ExtResource("28_y6uwr")
+UI_array_index = 4
+UI_array_name = "inventory"
+
+[node name="InvSlot5" type="TextureRect" parent="CameraAnchor/Camera2DCenter/Panel/InventorySlots" groups=["InventorySlots"]]
+layout_mode = 0
+offset_left = 9.5
+offset_top = 10.0
+offset_right = 16.5
+offset_bottom = 16.0
+expand_mode = 1
+stretch_mode = 4
+script = ExtResource("28_y6uwr")
+UI_array_index = 5
+UI_array_name = "inventory"
+
+[node name="InvSlot6" type="TextureRect" parent="CameraAnchor/Camera2DCenter/Panel/InventorySlots" groups=["InventorySlots"]]
+layout_mode = 0
+offset_left = 18.5
+offset_top = 10.0
+offset_right = 25.5
+offset_bottom = 16.0
+expand_mode = 1
+stretch_mode = 4
+script = ExtResource("28_y6uwr")
+UI_array_index = 6
+UI_array_name = "inventory"
+
+[node name="InvSlot7" type="TextureRect" parent="CameraAnchor/Camera2DCenter/Panel/InventorySlots" groups=["InventorySlots"]]
+layout_mode = 0
+offset_left = 27.5
+offset_top = 10.0
+offset_right = 34.5
+offset_bottom = 16.0
+expand_mode = 1
+stretch_mode = 4
+script = ExtResource("28_y6uwr")
+UI_array_index = 7
+UI_array_name = "inventory"
+
+[node name="PickupSlots" type="Panel" parent="CameraAnchor/Camera2DCenter/Panel"]
+visible = false
+layout_mode = 0
+offset_left = 1.5
+offset_top = 106.0
+offset_right = 36.5
+offset_bottom = 123.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_yh6i2")
+
+[node name="PickSlot0" type="TextureRect" parent="CameraAnchor/Camera2DCenter/Panel/PickupSlots"]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 1.0
+offset_right = 8.0
+offset_bottom = 7.0
+expand_mode = 1
+stretch_mode = 4
+script = ExtResource("28_y6uwr")
+UI_array_name = "lootinv"
+
+[node name="PickSlot1" type="TextureRect" parent="CameraAnchor/Camera2DCenter/Panel/PickupSlots"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 1.0
+offset_right = 17.0
+offset_bottom = 7.0
+expand_mode = 1
+stretch_mode = 4
+script = ExtResource("28_y6uwr")
+UI_array_index = 1
+UI_array_name = "lootinv"
+
+[node name="PickSlot2" type="TextureRect" parent="CameraAnchor/Camera2DCenter/Panel/PickupSlots"]
+layout_mode = 0
+offset_left = 19.0
+offset_top = 1.0
+offset_right = 26.0
+offset_bottom = 7.0
+expand_mode = 1
+stretch_mode = 4
+script = ExtResource("28_y6uwr")
+UI_array_index = 2
+UI_array_name = "lootinv"
+
+[node name="PickSlot3" type="TextureRect" parent="CameraAnchor/Camera2DCenter/Panel/PickupSlots"]
+layout_mode = 0
+offset_left = 28.0
+offset_top = 1.0
+offset_right = 35.0
+offset_bottom = 7.0
+expand_mode = 1
+stretch_mode = 4
+script = ExtResource("28_y6uwr")
+UI_array_index = 3
+UI_array_name = "lootinv"
+
+[node name="PickSlot4" type="TextureRect" parent="CameraAnchor/Camera2DCenter/Panel/PickupSlots"]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 10.0
+offset_right = 8.0
+offset_bottom = 16.0
+expand_mode = 1
+stretch_mode = 4
+script = ExtResource("28_y6uwr")
+UI_array_index = 4
+UI_array_name = "lootinv"
+
+[node name="PickSlot5" type="TextureRect" parent="CameraAnchor/Camera2DCenter/Panel/PickupSlots"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 17.0
+offset_bottom = 16.0
+expand_mode = 1
+stretch_mode = 4
+script = ExtResource("28_y6uwr")
+UI_array_index = 5
+UI_array_name = "lootinv"
+
+[node name="PickSlot6" type="TextureRect" parent="CameraAnchor/Camera2DCenter/Panel/PickupSlots"]
+layout_mode = 0
+offset_left = 19.0
+offset_top = 10.0
+offset_right = 26.0
+offset_bottom = 16.0
+expand_mode = 1
+stretch_mode = 4
+script = ExtResource("28_y6uwr")
+UI_array_index = 6
+UI_array_name = "lootinv"
+
+[node name="PickSlot7" type="TextureRect" parent="CameraAnchor/Camera2DCenter/Panel/PickupSlots"]
+layout_mode = 0
+offset_left = 28.0
+offset_top = 10.0
+offset_right = 35.0
+offset_bottom = 16.0
+expand_mode = 1
+stretch_mode = 4
+script = ExtResource("28_y6uwr")
+UI_array_index = 7
+UI_array_name = "lootinv"
+
+[node name="Cosmetic Lines" type="Panel" parent="CameraAnchor/Camera2DCenter/Panel"]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 103.0
+offset_right = 38.0
+offset_bottom = 104.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_11gg7")
+
+[node name="Panel" type="Panel" parent="CameraAnchor/Camera2DCenter/Panel/Cosmetic Lines"]
+layout_mode = 0
+offset_left = 9.0
+offset_top = -18.0
+offset_right = 10.0
+offset_bottom = -1.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_nv4vc")
+
+[node name="Panel2" type="Panel" parent="CameraAnchor/Camera2DCenter/Panel/Cosmetic Lines"]
+layout_mode = 0
+offset_left = 18.0
+offset_top = -18.0
+offset_right = 19.0
+offset_bottom = -1.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_nv4vc")
+
+[node name="Panel3" type="Panel" parent="CameraAnchor/Camera2DCenter/Panel/Cosmetic Lines"]
+layout_mode = 0
+offset_left = 27.0
+offset_top = -18.0
+offset_right = 28.0
+offset_bottom = -1.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_nv4vc")
+
+[node name="Panel4" type="Panel" parent="CameraAnchor/Camera2DCenter/Panel/Cosmetic Lines"]
+layout_mode = 0
+offset_left = 1.0
+offset_top = -10.0
+offset_right = 36.0
+offset_bottom = -9.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_8gxox")
+
+[node name="Panel5" type="Panel" parent="CameraAnchor/Camera2DCenter/Panel/Cosmetic Lines"]
+layout_mode = 0
+offset_left = 9.0
+offset_top = -27.0
+offset_right = 10.0
+offset_bottom = -18.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_nv4vc")
+
+[node name="Panel6" type="Panel" parent="CameraAnchor/Camera2DCenter/Panel/Cosmetic Lines"]
+layout_mode = 0
+offset_left = 18.0
+offset_top = -27.0
+offset_right = 19.0
+offset_bottom = -18.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_nv4vc")
+
+[node name="Panel7" type="Panel" parent="CameraAnchor/Camera2DCenter/Panel/Cosmetic Lines"]
+layout_mode = 0
+offset_left = 27.0
+offset_top = -27.0
+offset_right = 28.0
+offset_bottom = -18.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_nv4vc")
+
+[node name="Panel8" type="Panel" parent="CameraAnchor/Camera2DCenter/Panel/Cosmetic Lines"]
+layout_mode = 0
+offset_left = 8.5
+offset_top = 3.0
+offset_right = 9.5
+offset_bottom = 20.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_nv4vc")
+
+[node name="Panel9" type="Panel" parent="CameraAnchor/Camera2DCenter/Panel/Cosmetic Lines"]
+layout_mode = 0
+offset_left = 17.5
+offset_top = 3.0
+offset_right = 18.5
+offset_bottom = 20.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_nv4vc")
+
+[node name="Panel10" type="Panel" parent="CameraAnchor/Camera2DCenter/Panel/Cosmetic Lines"]
+layout_mode = 0
+offset_left = 26.5
+offset_top = 3.0
+offset_right = 27.5
+offset_bottom = 20.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_nv4vc")
+
+[node name="Panel11" type="Panel" parent="CameraAnchor/Camera2DCenter/Panel/Cosmetic Lines"]
+layout_mode = 0
+offset_left = 0.5
+offset_top = 11.0
+offset_right = 35.5
+offset_bottom = 12.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_8gxox")
 
 [node name="ProjectileShooter" parent="." instance=ExtResource("26_0gysh")]
 position = Vector2(0, -4)
@@ -447,7 +826,6 @@ debug_color = Color(0.993943, 0, 0.229909, 0.42)
 
 [node name="AbilityShooter" parent="." instance=ExtResource("27_vfarp")]
 position = Vector2(0, -4)
-metadata/_edit_lock_ = true
 
 [node name="VitTimer" type="Timer" parent="."]
 one_shot = true

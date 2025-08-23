@@ -1,8 +1,24 @@
-[gd_scene load_steps=2 format=3 uid="uid://cuavfm22cdcpq"]
+[gd_scene load_steps=4 format=3 uid="uid://cuavfm22cdcpq"]
 
 [ext_resource type="Texture2D" uid="uid://d02s6oj4hgnpf" path="res://Assets/ORYX sprites/Sliced/World/object_chest_closed.png" id="1_v2fo2"]
+[ext_resource type="Script" uid="uid://cusc8c02j1j7p" path="res://Scenes/loot_chest.gd" id="1_xeabn"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xeabn"]
+radius = 5.0
 
 [node name="loot_chest" type="Node2D"]
+script = ExtResource("1_xeabn")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -4)
 texture = ExtResource("1_v2fo2")
+
+[node name="pick_up_range" type="Area2D" parent="."]
+position = Vector2(0, -4)
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="pick_up_range"]
+shape = SubResource("CircleShape2D_xeabn")
+
+[connection signal="body_entered" from="pick_up_range" to="." method="_on_pick_up_range_body_entered"]
+[connection signal="body_exited" from="pick_up_range" to="." method="_on_pick_up_range_body_exited"]

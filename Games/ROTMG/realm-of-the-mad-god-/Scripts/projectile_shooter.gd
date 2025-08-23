@@ -1,8 +1,11 @@
 extends "res://generic_projectile_shooter.gd"
 
 
-var projectile_scene = Global.sorc2_projectile
-#@export var projectile_scene: PackedScene
+var projectile_scene:
+	get:
+		var scene = Global.player["current_weapon"]["scene"]
+		return scene
+		
 
 func shootProjectile():
 	#projectiles aim at mouse
@@ -12,7 +15,7 @@ func shootProjectile():
 	
 	var damage = Global.player["damage"]
 	var speed = Global.player["projectile_speed"]
-	var dex = Global.player["dex"]
+	var dex = Global.player["total_dex"]
 	
 	#shoots
 	var isshooting = Input.is_action_pressed("shoot")

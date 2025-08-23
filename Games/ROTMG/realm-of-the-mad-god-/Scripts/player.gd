@@ -1,8 +1,7 @@
 extends CharacterBody2D
 
 
-
-@onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
+@onready var animated_sprite_2d: AnimatedSprite2D = %AnimatedSprite2D
 @onready var camera_2d: Camera2D = $CameraAnchor/Camera2DCenter
 @onready var node_2d: Node2D = $CameraAnchor
 
@@ -22,6 +21,12 @@ extends CharacterBody2D
 @onready var vit_num: Label = $CameraAnchor/Camera2DCenter/Panel/StatContainer/Vit_num
 @onready var wis_num: Label = $CameraAnchor/Camera2DCenter/Panel/StatContainer/Wis_num
 
+@onready var pickup_slots: Panel = $CameraAnchor/Camera2DCenter/Panel/PickupSlots
+
+@onready var inventory_slots: Panel = $CameraAnchor/Camera2DCenter/Panel/InventorySlots
+@onready var equipment_slots: Panel = $CameraAnchor/Camera2DCenter/Panel/EquipmentSlots
+
+
 
 #Timers
 @onready var vit_timer: Timer = $VitTimer
@@ -35,9 +40,12 @@ var HCAM_OFFSET = 19.5
 
 var projectile_speed = 150
 
-
+var ismenuopen = false
 
 #STATS
+
+var current_weapon = Items.noweapon
+var current_ability = Items.noability
 
 var level: int = 1
 var current_exp: int = 0
@@ -45,21 +53,54 @@ var exp_to_level: int = 10
 var hp: int = 100
 var max_hp: int = 100
 var mp: int = 100
+var total_mp = 0
 var max_mp: int = 100
 var dex: float = 23
-var weapon_dex_mod: float = 0
-var total_dex = dex + weapon_dex_mod
+var total_dex = 0
 var damage = 17
 var vitality: float = 17
 var wisdom: float = 23
+var total_wis = 0
 var defense: int = 0
 var speed: float = 27
+
+
+#Inventory Array
+var inventory = []
+var equipment = []
+var current_chest = null
+
+var lootinv:
+	get:
+		var chest = current_chest["chest_pickup_slots"]
+		return chest
 
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	Global.player = self
+	
+	#gives inv array length
+	inventory.resize(8)
+	inventory.fill(null)
+	
+	#gives equip array length
+	equipment.resize(4)
+	equipment.fill(null)
+	
+	#start with weapon 0
+	
+	putinEquipment(0, Items.noweapon)
+	putinEquipment(1, Items.noability)
+	putinInventory(5, Items.sorcab1)
+	putinInventory(0, Items.sorc2)
+	
+	
+	
+	
+	
+
 
 func getDirection():
 	var direction = Input.get_vector("move_left", "move_right", "move_up", "move_down")
@@ -156,6 +197,8 @@ func animateSprite(direction):
 func _process(delta: float) -> void:
 	var direction = getDirection()
 	
+	updateStats()
+	
 	movePlayer(direction)
 	
 	setCamOffset()
@@ -164,15 +207,19 @@ func _process(delta: float) -> void:
 	
 	animateSprite(direction)
 	
-	modifyBars()
+	modifyBars(total_dex, total_mp)
 	
-	getsLevel()
+	getsLevel(total_mp)
 	
 	regenStats()
 	
-	#print(total_dex)
+	
+	
+	
+	
+	
 
-func getsLevel():	
+func getsLevel(total_mp):	
 	if current_exp >= exp_to_level:
 		var randomdef = randf_range(0,1)
 		level += 1
@@ -181,7 +228,7 @@ func getsLevel():
 		max_hp += 25
 		hp = max_hp
 		max_mp += 10
-		mp = max_mp
+		mp = total_mp
 		damage += 2
 		dex += 1
 		vitality += 2
@@ -189,10 +236,12 @@ func getsLevel():
 		speed += 1
 		if randomdef >= 0.5:
 			defense += 1
-		else:
-			pass
 		
-		
+
+func updateStats():
+	total_dex = dex + current_weapon["dex_mod"]
+	total_mp = max_mp + current_weapon["mp_mod"]
+	total_wis = wisdom + current_weapon["wis_mod"]
 
 
 func takesDamage(damage):
@@ -207,68 +256,102 @@ func regenVitality():
 		vit_timer.start(1)
 		
 		if hp >= max_hp:
-			pass
-		elif max_hp - hp < regenvit:
+			return
+			
+		if max_hp - hp < regenvit:
 			hp = max_hp
 		else:
 			hp += regenvit
 
-func regenWisdom():
-	var regenwis = 0.5 + 0.12 * wisdom
+func regenWisdom(total_mp, total_wis):
+	var regenwis = 0.5 + 0.12 * total_wis
+	
+	if mp > total_mp:
+		mp = total_mp
+	
 	if wis_timer.is_stopped():
 		wis_timer.start(1)
 		
-		if mp >= max_mp:
-			pass
-		elif max_mp - mp < regenwis:
-			mp = max_mp
+		if mp >= total_mp:
+			return
+			
+		if total_mp - mp < regenwis:
+			mp = total_mp
 		else:
 			mp += regenwis
 			
 func regenStats():
 	regenVitality()
-	regenWisdom()
+	regenWisdom(total_mp, total_wis)
 
 
-func modifyBars():
+func modifyBars(total_dex, total_mp):
 	#handles modifying HP
 	hp_bar.max_value = max_hp
 	hp_bar.value = hp
 	
 	
 	#handles modifying MP
-	mp_bar.max_value = max_mp
+	mp_bar.max_value = total_mp
 	mp_bar.value = mp
 	
 	#handles modifying Level
 	exp_bar.max_value = exp_to_level
 	exp_bar.value = current_exp
 	
-	updateUI()
+	updateUI(total_dex, total_mp, total_wis)
 
-func updateUI():
+func updateUI(total_dex, total_mp, total_wis):
 	#updates the text on the progressbars
 	#THERE ARE SPACES TO MAKE THE NUMS APPEAR IN THE MIDDLE LOL
 	#THIS IS string interpolation
 	hp_label.text = "HP:             %d / %d" % [hp, max_hp]
-	mp_label.text = "MP:            %d / %d" % [mp, max_mp]
+	mp_label.text = "MP:            %d / %d" % [mp, total_mp]
 	level_label.text = "Level %d:       %d / %d" % [level, current_exp, exp_to_level]
 	
 	att_num.text = "%d" % [damage]
 	def_num.text = "%d" % [defense]
 	spd_num.text = "%d" % [speed]
-	dex_num.text = "%d" % [dex]
+	dex_num.text = "%d" % [total_dex]
 	vit_num.text = "%d" % [vitality]
-	wis_num.text = "%d" % [wisdom]
+	wis_num.text = "%d" % [total_wis]
+	
+
+func showSlots():
+	if ismenuopen:
+		pickup_slots.visible = true
+	else:
+		pickup_slots.visible = false
 
 
+func canputinInventory(inv_index):
+	if inventory[inv_index] == null:
+		return true
+	return false
+
+#This works assuming that whatever is in inv_index is Null
+func putinInventory(inv_index, item):
+	inventory[inv_index] = item
+	inventory_slots.get_child(inv_index).set_texture(item["icon"])
+	
+
+func canputinEquipment(equip_index, item):
+	if equipment[equip_index] != null:
+		return false
+		
+		
+	var type = item["type"]
+	if equip_index == 0 and type == Items.ITEM_TYPE.WEAPON:
+		return true
+	if equip_index == 1 and type == Items.ITEM_TYPE.ABILITY:
+		return true
+	if equip_index == 2 and type == Items.ITEM_TYPE.ARMOR:
+		return true
+	if equip_index == 3 and type == Items.ITEM_TYPE.RING:
+		return true
+	return false
 
 
-#func _on_hurt_box_area_entered(area: Area2D) -> void:
-	#var unknownprojectiles = area.get_tree().get_nodes_in_group("Enemy Projectiles")
-	#for unknownprojectile in unknownprojectiles:
-		#if unknownprojectile.name == "EnemyProjectile":
-			#hp -= 1
-			#print(hp)
-			#if hp == 0:
-				#print("dieded")
+func putinEquipment(equip_index, item):
+	equipment[equip_index] = item
+	equipment_slots.get_child(equip_index).set_texture(item["icon"])

@@ -1,11 +1,18 @@
 extends Node2D
 
-@export var ability_scene: PackedScene
+
 @onready var area_2d: Area2D = $Area2D
 @onready var cooldown: Timer = $Cooldown
 
 var EnemyBodies = []
 var manacost = 50
+
+
+var ability_scene:
+	get:
+		var scene = Global.player["current_ability"]["scene"]
+		return scene
+
 
 
 

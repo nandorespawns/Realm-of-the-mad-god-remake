@@ -3,9 +3,7 @@ extends Node
 var player: Node2D = null
 
 
-#sorcerer weapons/projectiles
-var sorc1_projectile = preload("res://Scenes/sorc1_projectile.tscn")
-var sorc2_projectile = preload("res://Scenes/sorc2_projectile.tscn")
+
 
 
 
